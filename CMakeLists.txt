@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 include(TestPrograms/CMakeLists.txt)
 include(NetworkIPCSockets/CMakeLists.txt)
-include(NetworkIPCServer/CMakeLists.txt)
+#include(NetworkIPCServer/CMakeLists.txt)
 include(Chapter3FIleIO/CMakeLists.txt)
 set(ROOT_PATH "/home/lilelr/CLionProjects/cumulation")
 set(SOURCE_FILES
