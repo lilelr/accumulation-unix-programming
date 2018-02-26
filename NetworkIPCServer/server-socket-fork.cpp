@@ -76,9 +76,33 @@ serve(int sockfd)
                 exit(1);
             }
             close(clfd);
-            execl("/usr/bin/uptime", "uptime", (char *)0);
-            syslog(LOG_ERR, "ruptimed: unexpected return from exec: %s",
-                   strerror(errno));
+//            execl("/usr/bin/uptime", "uptime", (char *)0);
+//            execl("/bin/hostname", "hostname", (char *)0);
+
+//            syslog(LOG_ERR, "ruptimed: unexpected return from exec: %s",
+//                   strerror(errno));
+
+//            int fd;
+//            void* buf[512];
+//            int nread_num;
+//            int read_times =0;
+//            if((fd=open("/home/lilelr/HappyNewYear",O_RDONLY)) >= 0){
+//                while (true){
+//                    nread_num = read(fd,buf,512);
+//                    read_times++;
+//                    if(nread_num!=0){
+//                        write(STDOUT_FILENO,buf,nread_num);
+//                        if(nread_num!=512){
+//
+////                            close(STDOUT_FILENO);
+//                            break;
+//                        }
+//                    }
+//                }
+//                close(fd);
+//            }
+            printf("I'm B_ubuntu.Who are you?\n");
+            exit(0);
         } else {		/* parent */
             close(clfd);
             waitpid(pid, &status, 0);
