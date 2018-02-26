@@ -2,14 +2,16 @@
 #include <netdb.h>
 #include <errno.h>
 #include <syslog.h>
+#include <fcntl.h>
 #include <sys/socket.h>
+#include <sys/wait.h>
 
-#define BUFLEN	128
 #define QLEN 10
 
 #ifndef HOST_NAME_MAX
 #define HOST_NAME_MAX 256
 #endif
+
 
 int
 initserver(int type, const struct sockaddr *addr, socklen_t alen,
@@ -46,9 +48,8 @@ initserver(int type, const struct sockaddr *addr, socklen_t alen,
 void
 serve(int sockfd)
 {
-    int		clfd;
-    FILE	*fp;
-    char	buf[BUFLEN];
+    int		clfd, status;
+    pid_t	pid;
 
     for (;;) {
         clfd = accept(sockfd, NULL, NULL);
@@ -57,15 +58,31 @@ serve(int sockfd)
                    strerror(errno));
             exit(1);
         }
-        if ((fp = popen("/usr/bin/uptime", "r")) == NULL) {
-            sprintf(buf, "error: %s\n", strerror(errno));
-            send(clfd, buf, strlen(buf), 0);
-        } else {
-            while (fgets(buf, BUFLEN, fp) != NULL)
-                send(clfd, buf, strlen(buf), 0);
-            pclose(fp);
+        if ((pid = fork()) < 0) {
+            syslog(LOG_ERR, "ruptimed: fork error: %s",
+                   strerror(errno));
+            exit(1);
+        } else if (pid == 0) {	/* child */
+            /*
+             * The parent called daemonize ({Prog daemoninit}), so
+             * STDIN_FILENO, STDOUT_FILENO, and STDERR_FILENO
+             * are already open to /dev/null.  Thus, the call to
+             * close doesn't need to be protected by checks that
+             * clfd isn't already equal to one of these values.
+             */
+            if (dup2(clfd, STDOUT_FILENO) != STDOUT_FILENO ||
+                dup2(clfd, STDERR_FILENO) != STDERR_FILENO) {
+                syslog(LOG_ERR, "ruptimed: unexpected error");
+                exit(1);
+            }
+            close(clfd);
+            execl("/usr/bin/uptime", "uptime", (char *)0);
+            syslog(LOG_ERR, "ruptimed: unexpected return from exec: %s",
+                   strerror(errno));
+        } else {		/* parent */
+            close(clfd);
+            waitpid(pid, &status, 0);
         }
-        close(clfd);
     }
 }
 
@@ -81,16 +98,15 @@ main(int argc, char *argv[])
         printf("usage: ruptimed");
 #ifdef _SC_HOST_NAME_MAX
     n = sysconf(_SC_HOST_NAME_MAX);
-    if (n < 0)	/* best guess */
+	if (n < 0)	/* best guess */
 #endif
-        n = HOST_NAME_MAX;
+    n = HOST_NAME_MAX;
     host = static_cast<char *>(malloc(n));
     if (host == NULL)
         printf("malloc error");
     if (gethostname(host, n) < 0)
         printf("gethostname error");
-    printf("ruptimed\n");
-    printf(host);
+    printf("ruptimed");
     hint.ai_flags = AI_CANONNAME;
     hint.ai_family = 0;
     hint.ai_socktype = SOCK_STREAM;
