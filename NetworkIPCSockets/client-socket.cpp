@@ -61,6 +61,7 @@ main(int argc, char *argv[])
     hint.ai_canonname = NULL;
     hint.ai_addr = NULL;
     hint.ai_next = NULL;
+
     if ((err = getaddrinfo(argv[1], "nfs", &hint, &ailist)) != 0)
         printf("getaddrinfo error: %s", gai_strerror(err));
     for (aip = ailist; aip != NULL; aip = aip->ai_next) {
