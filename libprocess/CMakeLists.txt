@@ -44,3 +44,8 @@ target_link_libraries(promise-future /usr/local/lib/libmesos.so)
 set(FOO_SOURCE_FILES  FooProcess.cpp)
 add_executable(foo-process ${FOO_SOURCE_FILES})
 target_link_libraries(foo-process /usr/local/lib/libmesos.so)
+
+
+set(DELAY_SOURCE_FILES  delay.cpp)
+add_executable(delay-process ${DELAY_SOURCE_FILES})
+target_link_libraries(delay-process /usr/local/lib/libmesos.so)
