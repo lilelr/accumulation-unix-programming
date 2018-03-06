@@ -30,3 +30,7 @@ add_executable(libprocess_test ${SOURCE_FILES})
 #target_link_libraries(libprocess_test glog z /home/lilelr/open-source/mesos/build/3rdparty/libprocess/.libs/libprocess.a)
 
 target_link_libraries(libprocess_test /usr/local/lib/libmesos.so)
+
+set(PROMISE_ANG_FUTURE_SOURCE_FILES  PromiseAndFuture.cpp)
+add_executable(promise-future ${PROMISE_ANG_FUTURE_SOURCE_FILES})
+target_link_libraries(promise-future /usr/local/lib/libmesos.so)
