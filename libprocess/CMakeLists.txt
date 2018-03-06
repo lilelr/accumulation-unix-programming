@@ -31,6 +31,16 @@ add_executable(libprocess_test ${SOURCE_FILES})
 
 target_link_libraries(libprocess_test /usr/local/lib/libmesos.so)
 
+set(MESSAGE_EVENT_SOURCE_FILES  messageevent.cpp)
+add_executable(message-event ${MESSAGE_EVENT_SOURCE_FILES})
+target_link_libraries(message-event /usr/local/lib/libmesos.so)
+
+
 set(PROMISE_ANG_FUTURE_SOURCE_FILES  PromiseAndFuture.cpp)
 add_executable(promise-future ${PROMISE_ANG_FUTURE_SOURCE_FILES})
 target_link_libraries(promise-future /usr/local/lib/libmesos.so)
+
+
+set(FOO_SOURCE_FILES  FooProcess.cpp)
+add_executable(foo-process ${FOO_SOURCE_FILES})
+target_link_libraries(foo-process /usr/local/lib/libmesos.so)

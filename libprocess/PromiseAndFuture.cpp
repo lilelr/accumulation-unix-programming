@@ -31,17 +31,27 @@ using process::http::OK;
 using process::http::InternalServerError;
 
 
+using process::Process;
+using process::spawn;
+using process::terminate;
+using process::wait;
+using process::PID;
+
+
+
 struct Person{
     std::string name;
     std::string mother;
+    std::string father;
 };
 struct Person xiao_ming;
 
 Future<Person> find(const std::string& name){
-    if(name=="liangmian"){
+    if(name=="liangmia"){
         Person a;
         a.name="liangmian";
         a.mother="liuli";
+        a.father="waigong";
         return a;
     }
 
@@ -49,8 +59,20 @@ Future<Person> find(const std::string& name){
         Person lele;
         lele.name="lilele";
         lele.mother="liangmian";
+        lele.father="liwen";
         return lele;
     }
+
+
+    if(name=="liwen"){
+        Person liwen;
+        liwen.name="liwen";
+        liwen.mother="huang";
+        liwen.father="li";
+        return liwen;
+    }
+
+
 
 }
 
@@ -63,6 +85,22 @@ Future<Person> mother(const std::string& name)
                 return find(person.mother);
             });
 }
+
+// Returns a parent (an instance of `Person`) of the specified `name`.
+Future<Person> parent(const std::string& name)
+{
+    return find(name)
+            .then([](const Person& person) {
+                // Try to find the mother and if that fails try the father!
+                return find(person.mother)
+                        .recover([=](const Future<Person>&) {
+                            return find(person.father);
+                        });
+            });
+}
+
+
+class FooProcess : public Process<FooProcess> {};
 
 int main(int argc, char** argv)
 {
@@ -122,11 +160,31 @@ int main(int argc, char** argv)
     ////////////////////////////////////////////
 
 
-    xiao_ming.name="iji";
     //////////////////////////////////////////////////
-    Future<Person> my_mother=mother("lilele");
-    cout<<my_mother.get().name<<endl;
+//    Future<Person> my_mother=mother("lilele");
+//    cout<<my_mother.get().name<<endl;
+
+//    Future<Person> my_parent=parent("lilele");
+//    cout<<my_parent.get().name<<endl;
     /////////////////////////////////////////////////
+
+    ///////////////
+//    FooProcess process;
+//    spawn(process);
+// terminate(process);
+//wait(process);
+    /////////////////////////
+
+    ///////
+    FooProcess process;
+    spawn(process);
+
+    PID<FooProcess> pid = process.self();
+    cout<<pid.id<<endl;
+    cout<<pid.address<<endl;
+   terminate(process);
+   wait(process);
+    ////////
     return 0;
 
 }
