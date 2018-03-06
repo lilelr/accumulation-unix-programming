@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 #include_directories("/usr/local/include/process")
 #find_package (glog)
-set(SOURCE_FILES  simplesever.cpp)
+set(SOURCE_FILES  simplesever.cpp simpleclient.cpp)
 add_executable(libprocess_test ${SOURCE_FILES})
 #
 #find_package(Threads REQUIRED)
@@ -30,3 +30,8 @@ add_executable(libprocess_test ${SOURCE_FILES})
 #target_link_libraries(libprocess_test glog z /home/lilelr/open-source/mesos/build/3rdparty/libprocess/.libs/libprocess.a)
 
 target_link_libraries(libprocess_test /usr/local/lib/libmesos.so)
+
+set(CLIENT_SOURCE_FILES  simpleclient.cpp)
+add_executable(libprocess_client ${CLIENT_SOURCE_FILES})
+target_link_libraries(libprocess_client /usr/local/lib/libmesos.so)
+
