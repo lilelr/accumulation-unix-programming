@@ -10,6 +10,7 @@
 #include <process/check.hpp>
 
 
+
 #include <stout/json.hpp>
 #include <stout/numify.hpp>
 
@@ -17,7 +18,9 @@
 using process::MessageEvent;
 using process::PID;
 using process::UPID;
+using process::ProcessBase;
 using process::Process;
+
 using process::spawn;
 using process::terminate;
 using process::wait;
@@ -31,11 +34,13 @@ public:
     void initialize() override
     {
         send(server, "ping");
+        cout<<"send"<<endl;
     }
 
-    void visit(const MessageEvent& event) {
+    void consume(MessageEvent &&event) override  {
         if (event.message.from == server &&
             event.message.name == "pong") {
+            cout<<"client received pong, ended"<<endl;
             terminate(self());
         }
     }
@@ -45,15 +50,17 @@ public:
 
 class ServerProcess : public Process<ServerProcess>
 {
-public:
 protected:
-    void visit(const MessageEvent& event)
-    {
+    void consume(MessageEvent &&event) override {
         if (event.message.name == "ping") {
+            cout<<"server received"<<endl;
             send(event.message.from, "pong");
         }
         terminate(self());
     }
+
+
+
 };
 
 int main(int argc, char** argv)

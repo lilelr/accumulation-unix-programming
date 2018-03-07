@@ -16,6 +16,9 @@
 #include <process/future.hpp>
 #include <process/process.hpp>
 
+#include "addressbook.pb.h"
+
+
 
 #include <stout/json.hpp>
 #include <stout/numify.hpp>
@@ -33,6 +36,9 @@ using process::Promise;
 using process::http::Request;
 using process::http::OK;
 using process::http::InternalServerError;
+
+using tutorial::Person;
+
 
 
 class SimpleProcess : public process::Process<SimpleProcess> {
