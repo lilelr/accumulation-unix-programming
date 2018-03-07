@@ -30,6 +30,19 @@ add_executable(libprocess_test ${SOURCE_FILES})
 
 target_link_libraries(libprocess_test /usr/local/lib/libmesos.so)
 
+# Find required protobuf package
+find_package(Protobuf REQUIRED)
+if(PROTOBUF_FOUND)
+    message(STATUS "protobuf library found")
+else()
+    message(FATAL_ERROR "protobuf library is needed but cant be found")
+endif()
+
+
+set(main_SOURCE_FILES main.cpp addressbook.pb.h addressbook.pb.cc)
+add_executable(libprocess-main ${main_SOURCE_FILES})
+target_link_libraries(libprocess-main /usr/local/lib/libmesos.so)
+
 set(MESSAGE_EVENT_SOURCE_FILES  messageevent.cpp)
 add_executable(message-event ${MESSAGE_EVENT_SOURCE_FILES})
 target_link_libraries(message-event /usr/local/lib/libmesos.so)

@@ -10,6 +10,8 @@ add_subdirectory(libprocess)
 #include(NetworkIPCServer/CMakeLists.txt)
 add_subdirectory(Chapter3FIleIO)
 
+add_subdirectory(protobuf-test)
+
 set(SOURCE_FILES
         apue.h main.cpp)
 

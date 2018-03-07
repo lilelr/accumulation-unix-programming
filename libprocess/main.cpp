@@ -10,22 +10,36 @@
 #include <process/dispatch.hpp>
 #include <process/future.hpp>
 #include <process/process.hpp>
+#include <process/protobuf.hpp>
 
+
+#include <stout/json.hpp>
 #include <stout/numify.hpp>
 
+#include "addressbook.pb.h"
 
+using std::cerr;
 using std::cout;
 using std::endl;
+
+using std::chrono::seconds;
 
 using process::Future;
 using process::Promise;
 
+using process::http::Request;
+using process::http::OK;
+using process::http::InternalServerError;
 
-class SimpleProcess : public process::Process<SimpleProcess> {
+using tutorial::Person;
+
+
+
+class SimpleProcess : public ProtobufProcess<SimpleProcess> {
 public:
 
-    Future<Nothing> doSomething(const std::string msg) {
-        std::cout << "Wrapping message: " << msg << std::endl;
+    Future<Nothing> doSomething(Person person) {
+        std::cout << "Person message: " << person.id() << std::endl;
         return Nothing();
     }
 
@@ -45,16 +59,20 @@ int main() {
     cout << "Running simple process" << endl;
 
     cout << "Dispatching..." << endl;
+    Person p;
+    double my_id = 12;
+    p.set_id(my_id);
+    p.set_name("lele");
     process::dispatch(
-            pid, &SimpleProcess::doSomething, "test test test");
-
-    Future<int> sum = process::dispatch(pid, &SimpleProcess::calc, 99, 101);
-    sum.then([](int n) {
-        cout << "99 + 101 = " << n << endl;
-        return Nothing();
-    });
-
-    sum.await();
+            pid, &SimpleProcess::doSomething, p);
+//
+//    Future<int> sum = process::dispatch(pid, &SimpleProcess::calc, 99, 101);
+//    sum.then([](int n) {
+//        cout << "99 + 101 = " << n << endl;
+//        return Nothing();
+//    });
+//
+//    sum.await();
     process::terminate(simpleProcess);
     process::wait(simpleProcess);
     cout << "Done" << endl;

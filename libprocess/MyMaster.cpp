@@ -21,6 +21,8 @@
 #include <stout/json.hpp>
 #include <stout/numify.hpp>
 
+#include "addressbook.pb.h"
+
 
 using std::cerr;
 using std::cout;
@@ -35,6 +37,9 @@ using process::http::Request;
 using process::http::OK;
 using process::http::InternalServerError;
 
+using tutorial::Person;
+
+
 
 class MyMaster : public ProtobufProcess<MyMaster> {
 public:
@@ -43,28 +48,20 @@ public:
 
     void initialize() {
 
-        install<LaunchTasksMessage>(
+        install<Person>(
 
                 &MyMaster::launchTasks,
 
-                &LaunchTasksMessage::id,
-
-                &LaunchTasksMessage::tasks);
+                &Person::id);
 
     }
 
 
 
 
-    void launchTasks(const int id,
+    void launchTasks(const int id) {
 
-                     const vector<TaskInfo>& tasks) {
-
-        for (int i = 0; i < tasks.size(); i++) {
-
-//launch tasks[i];
-
-        }
+       cout<<id<<endl;
 
     }
 
