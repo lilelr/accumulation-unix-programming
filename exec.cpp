@@ -14,11 +14,11 @@ int main(int argc, char *argv[]) {
     if((pid= fork()) < 0){
         cout<<"fork error"<<endl;
     }else if(pid == 0){
-//        if(execle("/home/lilelr/CLionProjects/cumulation/cmake-build-debug/HappyNewYear","HappyNewYear", "myarg1",
+//        if(execle("/home/lilelr/CLionProjects/acumulation/cmake-build-debug/HappyNewYear","HappyNewYear", "myarg1",
 //                  "MY ARG2",(char *)0, env_init)<0){
 //            cout<<"execle error"<<endl;
 //        }
-        if(execle("/home/lilelr/CLionProjects/cumulation/cmake-build-debug/sleep_several_seconds","sleep_several_seconds", "myarg1",
+        if(execle("/home/lilelr/CLionProjects/acumulation/cmake-build-debug/sleep_several_seconds","sleep_several_seconds", "myarg1",
                   "MY ARG2",(char *)0, env_init)<0){
             cout<<"execle error"<<endl;
         }

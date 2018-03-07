@@ -16,9 +16,9 @@ int main(int argc, char *argv[]) {
     void* buf[512];
     int nread_num;
     int read_times =0;
-    if((fd=open("/home/lilelr/CLionProjects/cumulation/cmake-build-debug/HappyNewYear",O_RDONLY)) >= 0){
+    if((fd=open("/home/lilelr/CLionProjects/acumulation/cmake-build-debug/HappyNewYear",O_RDONLY)) >= 0){
 
-        output_fd = open("/home/lilelr/CLionProjects/cumulation/Chapter3FIleIO/happy_new_year",O_WRONLY|O_CREAT|O_APPEND,777);
+        output_fd = open("/home/lilelr/CLionProjects/acumulation/Chapter3FIleIO/happy_new_year",O_WRONLY|O_CREAT|O_APPEND,777);
         while (true){
             nread_num = read(fd,buf,512);
             read_times++;

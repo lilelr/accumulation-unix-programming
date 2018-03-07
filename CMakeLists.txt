@@ -1,16 +1,15 @@
 cmake_minimum_required(VERSION 3.8)
-project(cumulation)
+project(acumulation)
 
 #set(CMAKE_CXX_STANDARD 11)
 
-include(TestPrograms/CMakeLists.txt)
-include(NetworkIPCSockets/CMakeLists.txt)
+add_subdirectory(TestPrograms)
+add_subdirectory(NetworkIPCSockets)
 #include(libprocess/CMakeLists.txt)
 add_subdirectory(libprocess)
 #include(NetworkIPCServer/CMakeLists.txt)
-include(Chapter3FIleIO/CMakeLists.txt)
+add_subdirectory(Chapter3FIleIO)
 
-set(ROOT_PATH "/home/lilelr/CLionProjects/cumulation")
 set(SOURCE_FILES
         apue.h main.cpp)
 

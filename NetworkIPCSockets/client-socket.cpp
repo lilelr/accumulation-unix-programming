@@ -40,7 +40,7 @@ print_uptime(int sockfd)
     int		n;
     void*	buf[BUFLEN];
     int     output_fd;
-            output_fd = open("/home/lilelr/CLionProjects/cumulation/NetworkIPCServer/happy_new_year",O_WRONLY|O_CREAT|O_APPEND,777);
+            output_fd = open("/home/lilelr/CLionProjects/acumulation/NetworkIPCServer/happy_new_year",O_WRONLY|O_CREAT|O_APPEND,777);
     while ((n = recv(sockfd, buf, BUFLEN, 0)) > 0){
         printf("%d\n",n);
         write(output_fd, buf, n);

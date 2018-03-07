@@ -1,5 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
-project(libprocess_test)
+
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -49,3 +48,9 @@ target_link_libraries(foo-process /usr/local/lib/libmesos.so)
 set(DELAY_SOURCE_FILES  delay.cpp)
 add_executable(delay-process ${DELAY_SOURCE_FILES})
 target_link_libraries(delay-process /usr/local/lib/libmesos.so)
+
+
+
+set(master-slave-SOURCE_FILES  MyMaster.cpp)
+add_executable(master-slave ${master-slave-SOURCE_FILES})
+target_link_libraries(master-slave /usr/local/lib/libmesos.so)
