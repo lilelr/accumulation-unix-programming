@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.8)
-project(acumulation)
 
 set(CMAKE_CXX_STANDARD 11)
 set(NetworkIPCSockets_path "/home/lilelr/CLionProjects/cumulation/NetworkIPCSockets")
