@@ -67,6 +67,9 @@ set(protobuf_MESSAGE_EVENT_SOURCE_FILES  protobufmessageevent.cpp)
 add_executable(protobuf-message-event ${protobuf_MESSAGE_EVENT_SOURCE_FILES} ${PROTO_SRCS} ${PROTO_HDRS})
 target_link_libraries(protobuf-message-event /usr/local/lib/libmesos.so)
 
+set(client_protobuf_MESSAGE_EVENT_SRCS  client_protobuf_message_event.cpp)
+add_executable(client_protobuf ${client_protobuf_MESSAGE_EVENT_SRCS} ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(client_protobuf /usr/local/lib/libmesos.so)
 
 
 set(PROMISE_ANG_FUTURE_SOURCE_FILES  PromiseAndFuture.cpp)
