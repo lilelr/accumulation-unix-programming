@@ -8,8 +8,9 @@ message Person {
 
 }
 
-message resume{
-    int32 age;
-    bool is_man;
-     sint64 sign_id;
+message Resume{
+    int32 age = 3;
+    bool is_man = 4;
+    sint64 sign_id = 5;
 }
+
