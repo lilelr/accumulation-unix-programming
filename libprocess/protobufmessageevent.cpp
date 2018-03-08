@@ -78,6 +78,10 @@ public:
         cout << p.id() << endl;
         cout<<p.name()<<endl;
         cout<<"transfer_person"<<endl;
+        Person reply_p;
+        reply_p.set_name("woman");
+        reply_p.set_id("f456");
+        reply(reply_p);
 
     }
 
@@ -108,6 +112,7 @@ int main(int argc, char **argv) {
 
     PID<ProtoServerProcess> server = spawn(new ProtoServerProcess(), true);
     cout << server.address << endl;
+    cout<<server.id<<endl;
     wait(server);
 
 
