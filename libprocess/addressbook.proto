@@ -5,12 +5,12 @@ package tutorial;
 message Person {
     string name = 1;
     string id = 2;
-
+    repeated Resume my_resume =3;
 }
 
 message Resume{
-    int32 age = 3;
-    bool is_man = 4;
-    sint64 sign_id = 5;
+    int32 age = 1;
+    bool is_man = 2;
+    sint64 sign_id = 3;
 }
 
