@@ -62,6 +62,12 @@ public:
         reply_p_resume_2->set_is_man(true);
         reply_p_resume_2->set_sign_id(333);
 
+
+        Person::PhoneNumber p_phone_number;
+        p_phone_number.set_number("8321585");
+        p_phone_number.set_type(Person::HOME);
+        reply_p.set_allocated_phones(&p_phone_number);
+
         reply_p.set_name("woman");
         reply_p.set_id("f456");
         reply(reply_p);
