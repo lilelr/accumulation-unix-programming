@@ -39,13 +39,34 @@ else()
 endif()
 
 
-set(main_SOURCE_FILES main.cpp addressbook.pb.h addressbook.pb.cc)
+set(main_SOURCE_FILES main.cpp)
 add_executable(libprocess-main ${main_SOURCE_FILES})
 target_link_libraries(libprocess-main /usr/local/lib/libmesos.so)
 
 set(MESSAGE_EVENT_SOURCE_FILES  messageevent.cpp)
 add_executable(message-event ${MESSAGE_EVENT_SOURCE_FILES})
 target_link_libraries(message-event /usr/local/lib/libmesos.so)
+
+
+# Find required protobuf package
+set(PROTOBUF_VERSION "3.5.1")
+
+find_package(Protobuf ${PROTOBUF_VERSION} EXACT REQUIRED)
+if(PROTOBUF_FOUND)
+    message(STATUS "protobuf library found")
+else()
+    message(FATAL_ERROR "protobuf library is needed but cant be found")
+endif()
+
+
+include_directories(${PROTOBUF_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS addressbook.proto)
+
+set(protobuf_MESSAGE_EVENT_SOURCE_FILES  protobufmessageevent.cpp)
+add_executable(protobuf-message-event ${protobuf_MESSAGE_EVENT_SOURCE_FILES} ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(protobuf-message-event /usr/local/lib/libmesos.so)
+
 
 
 set(PROMISE_ANG_FUTURE_SOURCE_FILES  PromiseAndFuture.cpp)

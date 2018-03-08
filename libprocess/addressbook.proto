@@ -1,15 +1,9 @@
-syntax = "proto3";
+syntax = "proto2";
 
 package tutorial;
 
 message Person {
-   string name = 1;
-   double id = 2;
-   string email = 3;
+   required string name = 1;
+   required string id = 2;
 
 }
-
-message AddressBook {
-   Person people = 1;
-
-  }
