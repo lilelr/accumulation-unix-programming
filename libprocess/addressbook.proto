@@ -1,9 +1,15 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package tutorial;
 
 message Person {
-   required string name = 1;
-   required string id = 2;
+    string name = 1;
+    string id = 2;
 
+}
+
+message resume{
+    int32 age;
+    bool is_man;
+     sint64 sign_id;
 }
