@@ -65,6 +65,7 @@ protected:
 
 int main(int argc, char** argv)
 {
+
     PID<ServerProcess> server = spawn(new ServerProcess(), true);
     PID<ClientProcess> client = spawn(new ClientProcess(server), true);
     cout<<server.address<<endl;
