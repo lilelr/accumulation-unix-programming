@@ -72,6 +72,18 @@ public:
             cout<<temp_resume.is_man()<<endl;
             cout<<temp_resume.sign_id()<<endl;
         }
+
+        PhoneNumber reply_p_phone = reply_p.phones();
+        cout<<reply_p_phone.number()<<endl;
+        switch(reply_p.phone_type()){
+            case Person::HOME:
+                cout<<"Home phone";
+                break;
+
+            case Person::MOBILE:
+                cout<<"mobile phone";
+                break;
+        }
     }
 
 //    void consume(MessageEvent &&event) override {
@@ -94,7 +106,7 @@ int main(int argc, char **argv) {
 //PID<ProtoServerProcess> server = spawn(new ProtoServerProcess(), true);
     Try<IP> try_serverIP = IP::parse("10.211.55.4");
     auto serverIP = try_serverIP.get();
-    UPID server("(1)",serverIP,38516);
+    UPID server("(1)",serverIP,34538);
     PID<ClientProtoProcess> client = spawn(new ClientProtoProcess(server), true);
     wait(client);
 
