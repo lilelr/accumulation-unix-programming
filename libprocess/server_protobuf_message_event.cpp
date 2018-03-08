@@ -52,6 +52,16 @@ public:
         cout<<p.name()<<endl;
         cout<<"transfer_person"<<endl;
         Person reply_p;
+        Resume *reply_p_resume_1 = reply_p.add_my_resume();
+        reply_p_resume_1->set_age(25);
+        reply_p_resume_1->set_is_man(true);
+        reply_p_resume_1->set_sign_id(-577677);
+
+        Resume *reply_p_resume_2 = reply_p.add_my_resume();
+        reply_p_resume_2->set_age(23);
+        reply_p_resume_2->set_is_man(true);
+        reply_p_resume_2->set_sign_id(333);
+
         reply_p.set_name("woman");
         reply_p.set_id("f456");
         reply(reply_p);
