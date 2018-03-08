@@ -66,6 +66,12 @@ public:
         cout<<server.address<<endl;
         cout<<reply_p.id()<<endl;
         cout<<reply_p.name()<<endl;
+        for(int j = 0 ; j < reply_p.my_resume_size();j++){
+            const Resume& temp_resume = reply_p.my_resume(j);
+            cout<<temp_resume.age()<<endl;
+            cout<<temp_resume.is_man()<<endl;
+            cout<<temp_resume.sign_id()<<endl;
+        }
     }
 
 //    void consume(MessageEvent &&event) override {
@@ -88,7 +94,7 @@ int main(int argc, char **argv) {
 //PID<ProtoServerProcess> server = spawn(new ProtoServerProcess(), true);
     Try<IP> try_serverIP = IP::parse("10.211.55.4");
     auto serverIP = try_serverIP.get();
-    UPID server("(1)",serverIP,40057);
+    UPID server("(1)",serverIP,38516);
     PID<ClientProtoProcess> client = spawn(new ClientProtoProcess(server), true);
     wait(client);
 
