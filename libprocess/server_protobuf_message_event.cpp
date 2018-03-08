@@ -31,38 +31,11 @@ using process::wait;
 using namespace ::std;
 using namespace ::tutorial;
 
-class ClientProtoProcess : public ProtobufProcess<ClientProtoProcess> {
-public:
-    ClientProtoProcess(const UPID &server) : server(server) {}
-
-    void initialize() override {
-        Person p;
-        p.set_id("12211104");
-        p.set_name("lilele");
-        send(server, p);
-        cout << "send" << endl;
-    }
-
-    void consume(MessageEvent &&event) override {
-        if (event.message.from == server &&
-            event.message.name == "pong") {
-            cout << "client received pong, ended" << endl;
-            terminate(self());
-        }
-    }
-
-    void send_a_msg(){
-        send(server, "we");
-    }
-
-    UPID server;
-};
-
-class ProtoServerProcess : public ProtobufProcess<ProtoServerProcess> {
+class ServerProtoProcess : public ProtobufProcess<ServerProtoProcess> {
 public:
     void initialize() override {
         install<Person>(
-                &ProtoServerProcess::transfer_person
+                &ServerProtoProcess::transfer_person
                 );
 
 //        install<Person>(
@@ -110,7 +83,7 @@ int main(int argc, char **argv) {
 //    wait(server);
 //    wait(client);
 
-    PID<ProtoServerProcess> server = spawn(new ProtoServerProcess(), true);
+    PID<ServerProtoProcess> server = spawn(new ServerProtoProcess(), true);
     cout << server.address << endl;
     cout<<server.id<<endl;
     wait(server);

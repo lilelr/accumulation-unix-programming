@@ -63,9 +63,9 @@ include_directories(${PROTOBUF_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS addressbook.proto)
 
-set(protobuf_MESSAGE_EVENT_SOURCE_FILES  protobufmessageevent.cpp)
-add_executable(protobuf-message-event ${protobuf_MESSAGE_EVENT_SOURCE_FILES} ${PROTO_SRCS} ${PROTO_HDRS})
-target_link_libraries(protobuf-message-event /usr/local/lib/libmesos.so)
+set(protobuf_MESSAGE_EVENT_SOURCE_FILES server_protobuf_message_event.cpp)
+add_executable(server-protobuf ${protobuf_MESSAGE_EVENT_SOURCE_FILES} ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(server-protobuf /usr/local/lib/libmesos.so)
 
 set(client_protobuf_MESSAGE_EVENT_SRCS  client_protobuf_message_event.cpp)
 add_executable(client_protobuf ${client_protobuf_MESSAGE_EVENT_SRCS} ${PROTO_SRCS} ${PROTO_HDRS})
