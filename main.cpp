@@ -100,6 +100,7 @@ print_flags(struct addrinfo *aip)
     }
 }
 
+
 int
 main(int argc, char *argv[])
 {
