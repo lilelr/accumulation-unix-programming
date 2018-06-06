@@ -4,5 +4,7 @@ project(cumulation)
 set(CMAKE_CXX_STANDARD 11)
 
 set(getloadavg_SRCS getloadavg.cpp)
-
 add_executable(getloadavg_main ${getloadavg_SRCS})
+
+set(getenv_SRCS getenv.cpp permission.cpp)
+add_executable(getenv_main ${getenv_SRCS})

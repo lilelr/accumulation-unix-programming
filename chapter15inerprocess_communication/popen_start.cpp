@@ -14,7 +14,10 @@ int main() {
     char buf[1024];
 
     memset(buf, '\0', sizeof(buf));//初始化buf,以免后面写如乱码到文件中
-    fpin = popen("ls -l", "r"); //将“ls －l”命令的输出 通过管道读取（“r”参数）到FILE* stream
+//    fpin = popen("ls -l", "r"); //将“ls －l”命令的输出 通过管道读取（“r”参数）到FILE* stream
+    fpin = popen(
+            "tar -czf abc.gz /home/lilelr/CLionProjects/acumulation/chapter15inerprocess_communication/popen_start.cpp",
+            "r"); //将“ls －l”命令的输出 通过管道读取（“r”参数）到FILE* stream
     fpout = fopen("test_popen.txt", "w+"); //新建一个可写的文件
 
     fread(buf, sizeof(char), sizeof(buf), fpin);  //将刚刚FILE* fpin的数据流读取到buf中
